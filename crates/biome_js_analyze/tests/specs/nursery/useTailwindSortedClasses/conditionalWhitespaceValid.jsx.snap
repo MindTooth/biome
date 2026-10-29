@@ -1,0 +1,15 @@
+---
+source: crates/biome_js_analyze/tests/spec_tests.rs
+expression: conditionalWhitespaceValid.jsx
+---
+# Input
+```jsx
+// should not generate diagnostics
+<>
+  <div class={`flex p-4${hidden ? " hidden" : ""}`} />
+  <div class={`${hidden ? "hidden " : ""}flex p-4`} />
+  <div class={`flex${hidden ? " hidden " : " "}p-4`} />
+  <div class={`flex p-4${hidden && " hidden"}`} />
+</>;
+
+```

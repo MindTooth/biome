@@ -59,6 +59,24 @@ pub(crate) fn sort_classes(
         if ctx.keep_trailing() {
             result.push(' ');
         }
+    } else if !result.is_empty()
+        && matches!(
+            query.node(),
+            AnyTailwindClassString::JsStringLiteralExpression(_)
+        )
+        && query
+            .node()
+            .syntax()
+            .ancestors()
+            .any(|node| JsTemplateElement::can_cast(node.kind()))
+    {
+        // Interpolated strings can supply the separator between adjacent classes.
+        if class_name.starts_with(char::is_whitespace) {
+            result.insert(0, ' ');
+        }
+        if class_name.ends_with(char::is_whitespace) {
+            result.push(' ');
+        }
     }
 
     Some(result)

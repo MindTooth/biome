@@ -1,0 +1,128 @@
+---
+source: crates/biome_js_analyze/tests/spec_tests.rs
+expression: conditionalWhitespace.jsx
+---
+# Input
+```jsx
+// should generate diagnostics
+<>
+  <div class={`flex${hidden ? " px-2 p-4" : ""}`} />
+  <div class={`${hidden ? "px-2 p-4 " : ""}flex`} />
+  <div class={`flex${hidden ? " px-2 p-4 " : " "}hidden`} />
+  <div class={`flex${hidden ? "px-2 p-4" : ""}`} />
+</>;
+
+```
+
+# Diagnostics
+```
+conditionalWhitespace.jsx:3:31 lint/nursery/useTailwindSortedClasses  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━
+
+  i These CSS classes should be sorted.
+  
+    1 │ // should generate diagnostics
+    2 │ <>
+  > 3 │   <div class={`flex${hidden ? " px-2 p-4" : ""}`} />
+      │                               ^^^^^^^^^^^
+    4 │   <div class={`${hidden ? "px-2 p-4 " : ""}flex`} />
+    5 │   <div class={`flex${hidden ? " px-2 p-4 " : " "}hidden`} />
+  
+  i A consistent class order makes class lists easier to read and keeps changes to them small.
+  
+  i This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit https://biomejs.dev/linter/#nursery for more information.
+  
+  i Unsafe fix: Sort the classes.
+  
+    1 1 │   // should generate diagnostics
+    2 2 │   <>
+    3   │ - ··<div·class={`flex${hidden·?·"·px-2·p-4"·:·""}`}·/>
+      3 │ + ··<div·class={`flex${hidden·?·"·p-4·px-2"·:·""}`}·/>
+    4 4 │     <div class={`${hidden ? "px-2 p-4 " : ""}flex`} />
+    5 5 │     <div class={`flex${hidden ? " px-2 p-4 " : " "}hidden`} />
+  
+
+```
+
+```
+conditionalWhitespace.jsx:4:27 lint/nursery/useTailwindSortedClasses  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━
+
+  i These CSS classes should be sorted.
+  
+    2 │ <>
+    3 │   <div class={`flex${hidden ? " px-2 p-4" : ""}`} />
+  > 4 │   <div class={`${hidden ? "px-2 p-4 " : ""}flex`} />
+      │                           ^^^^^^^^^^^
+    5 │   <div class={`flex${hidden ? " px-2 p-4 " : " "}hidden`} />
+    6 │   <div class={`flex${hidden ? "px-2 p-4" : ""}`} />
+  
+  i A consistent class order makes class lists easier to read and keeps changes to them small.
+  
+  i This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit https://biomejs.dev/linter/#nursery for more information.
+  
+  i Unsafe fix: Sort the classes.
+  
+    2 2 │   <>
+    3 3 │     <div class={`flex${hidden ? " px-2 p-4" : ""}`} />
+    4   │ - ··<div·class={`${hidden·?·"px-2·p-4·"·:·""}flex`}·/>
+      4 │ + ··<div·class={`${hidden·?·"p-4·px-2·"·:·""}flex`}·/>
+    5 5 │     <div class={`flex${hidden ? " px-2 p-4 " : " "}hidden`} />
+    6 6 │     <div class={`flex${hidden ? "px-2 p-4" : ""}`} />
+  
+
+```
+
+```
+conditionalWhitespace.jsx:5:31 lint/nursery/useTailwindSortedClasses  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━
+
+  i These CSS classes should be sorted.
+  
+    3 │   <div class={`flex${hidden ? " px-2 p-4" : ""}`} />
+    4 │   <div class={`${hidden ? "px-2 p-4 " : ""}flex`} />
+  > 5 │   <div class={`flex${hidden ? " px-2 p-4 " : " "}hidden`} />
+      │                               ^^^^^^^^^^^^
+    6 │   <div class={`flex${hidden ? "px-2 p-4" : ""}`} />
+    7 │ </>;
+  
+  i A consistent class order makes class lists easier to read and keeps changes to them small.
+  
+  i This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit https://biomejs.dev/linter/#nursery for more information.
+  
+  i Unsafe fix: Sort the classes.
+  
+    3 3 │     <div class={`flex${hidden ? " px-2 p-4" : ""}`} />
+    4 4 │     <div class={`${hidden ? "px-2 p-4 " : ""}flex`} />
+    5   │ - ··<div·class={`flex${hidden·?·"·px-2·p-4·"·:·"·"}hidden`}·/>
+      5 │ + ··<div·class={`flex${hidden·?·"·p-4·px-2·"·:·"·"}hidden`}·/>
+    6 6 │     <div class={`flex${hidden ? "px-2 p-4" : ""}`} />
+    7 7 │   </>;
+  
+
+```
+
+```
+conditionalWhitespace.jsx:6:31 lint/nursery/useTailwindSortedClasses  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━
+
+  i These CSS classes should be sorted.
+  
+    4 │   <div class={`${hidden ? "px-2 p-4 " : ""}flex`} />
+    5 │   <div class={`flex${hidden ? " px-2 p-4 " : " "}hidden`} />
+  > 6 │   <div class={`flex${hidden ? "px-2 p-4" : ""}`} />
+      │                               ^^^^^^^^^^
+    7 │ </>;
+    8 │ 
+  
+  i A consistent class order makes class lists easier to read and keeps changes to them small.
+  
+  i This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit https://biomejs.dev/linter/#nursery for more information.
+  
+  i Unsafe fix: Sort the classes.
+  
+    4 4 │     <div class={`${hidden ? "px-2 p-4 " : ""}flex`} />
+    5 5 │     <div class={`flex${hidden ? " px-2 p-4 " : " "}hidden`} />
+    6   │ - ··<div·class={`flex${hidden·?·"px-2·p-4"·:·""}`}·/>
+      6 │ + ··<div·class={`flex${hidden·?·"p-4·px-2"·:·""}`}·/>
+    7 7 │   </>;
+    8 8 │   
+  
+
+```
